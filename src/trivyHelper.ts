@@ -53,8 +53,8 @@ export async function runTrivy(): Promise<TrivyResult> {
         status: trivyStatus,
         timestamp: timestamp
     };
-
     return trivyResult;
+    console.log(imageName, trivyResult)
 }
 
 export async function getTrivy(): Promise<string> {

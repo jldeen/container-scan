@@ -17,6 +17,9 @@ export async function run(): Promise<void> {
         console.log("No vulnerabilities were detected in the container image");
     } else {
         const errors = utils.extractErrorsFromLogs(trivyHelper.getTrivyLogPath(), trivyHelper.trivyToolName);
+        
+        console.log(errors);
+
         errors.forEach(err => {
             core.error(err);
         });
