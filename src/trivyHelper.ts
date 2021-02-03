@@ -44,7 +44,7 @@ export async function runTrivy(): Promise<TrivyResult> {
 
     const imageName = inputHelper.imageName;
     const trivyOptions: ExecOptions = await getTrivyExecOptions();
-    console.log("Scanning for vulnerabilties...");
+    console.log("Scanning for vulnerabilties on image: " + imageName);
     const trivyToolRunner = new ToolRunner(trivyPath, [imageName], trivyOptions);
     const timestamp = new Date().toISOString();
     const trivyStatus = await trivyToolRunner.exec();
@@ -53,7 +53,6 @@ export async function runTrivy(): Promise<TrivyResult> {
         status: trivyStatus,
         timestamp: timestamp
     };
-
     return trivyResult;
 }
 
@@ -129,7 +128,7 @@ export function getSummary(trivyStatus: number): string {
             summary = `Found ${total} vulnerabilities -${summaryDetails}`;
             break;
         default:
-            summary = 'An error occurred while scanning the container image for vulnerabilities';
+            summary = 'An error occurred while scanning container image: ' + inputHelper.imageName + ' for vulnerabilities. Please check your image name and try again.';
             break;
     }
 
